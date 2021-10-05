@@ -11,23 +11,26 @@
         if (mysqli_connect_error()) {
             echo mysqli_connect_error();
             exit;
-        }
-        
+        }      
         echo "Connected successfully.";
-        /*
+
+
+        $codigo = $_GET['name'];
+        
         $sql = "SELECT *
-                FROM user
-                ORDER BY date_entry;";
+                FROM listausuario
+                where nombreuser = '$codigo'
+                ORDER BY coduser";
     
         $results = mysqli_query($conn, $sql);
-    
-        if ($results === false) {
+        
+
+        if ($sql) {
             echo mysqli_error($conn);
         } else {
             $users = mysqli_fetch_all($results, MYSQLI_ASSOC);
     
             print_r($users);
         }
-        */
     ?>
 </pre>
