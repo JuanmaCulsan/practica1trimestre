@@ -10,11 +10,11 @@
 <body>
     <div class="container">
         <div class="content">
-            <form class="form" action="conexionbbdd.php" method="post">
+            <form class="form" action="conexionbbdd.php" method="GET">
                 <h1>¡Bienvenido!</h1>
-                <input type="text" value="usuario" class="username" placeholder="user">
+                <input type="text" name="nombre" class="username">
                 <br>
-                <input type="text" value="pass" class="username" placeholder="pass">
+                <input type="text" name="pass" class="username">
                 <input type="submit" class="submit" value="send">
             </form>
         </div>

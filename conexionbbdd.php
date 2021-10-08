@@ -1,25 +1,12 @@
 <?php
-
     require("header.php");
-    
-    $db_host = "localhost";
-    $db_name = "practica1php";
-    $db_user = "root";
-    $db_pass = "";
-    
-    $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
- 
-    if (mysqli_connect_error()) {
-        echo mysqli_connect_error();
-        exit;
-    }
+    require('conexion.php');
 
     $usuario = $_GET['nombre'];
-    
     $pass = $_GET['pass'];
  
     //TIENE QUE TENER EL MISMO VALOR QUE LA COLUMNA DE LA TABLA Y EL VALOR QUE QUEREMOS buscar
-    $sql = "SELECT * FROM usuario where nombre = 'alberto' && pass = 'alberto20'";
+    $sql = "SELECT * FROM usuario where nombre='$usuario' AND pass='$pass'";
  
     $results = mysqli_query($conn, $sql);
     
@@ -55,13 +42,15 @@
         <?php else: ?>
             <ul>
                 <!--poner aqui el formulario-->
+                <?php foreach($usuario as $us) ?>
+
                 <form action="conexionbbdd.php" method="GET">
                     <label for="">Nombre</label><br>
-                    <input type="text" value="<? $usuario['usuario'] ?>" id=""><br>
+                    <input type="text" placeholder=<?=$usuario['']  ?>><br>
                     <label for="">login</label><br>
-                    <input type="text" value="<? $usu['login'] ?>" id=""><br>
+                    <input type="text" value="<?=$usuario['login']=='alberto'; ?>"><br>
                     <label for="">vehiculos</label><br>
-                    <input type="text" value="<? $usu['login'] ?>" id=""><br>
+                    <input type="text" value="<?=$usuario['login']; ?>"><br>
                 </form>
             </ul>
         <?php endif; ?>
