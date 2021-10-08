@@ -19,7 +19,7 @@
     $pass = $_GET['pass'];
  
     //TIENE QUE TENER EL MISMO VALOR QUE LA COLUMNA DE LA TABLA Y EL VALOR QUE QUEREMOS buscar
-    $sql = "SELECT * FROM usuario where id_usu = $usuario";
+    $sql = "SELECT * FROM usuario where nombre = 'alberto' && pass = 'alberto20'";
  
     $results = mysqli_query($conn, $sql);
     
