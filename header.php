@@ -37,6 +37,5 @@
     <div class="footer">
         <p>Todos los berberechos reservador</p>
     </div>
-    
 </body>
 </html>

@@ -10,12 +10,14 @@
 <body>
     <div class="container">
         <div class="content">
-            <form class="form" action="conexionbbdd.php" method="GET">
+            <form class="form" action="datos_usuario.php" method="GET">
                 <h1>¡Bienvenido!</h1>
                 <input type="text" name="nombre" class="username">
                 <br>
                 <input type="text" name="pass" class="username">
-                <input type="submit" class="submit" value="send">
+                <input type="submit" class="submit" value="aceptar">
+
+                <p>Eres nuevo/a <a href="nuevo_usuario.php">pincha aqui</a>
             </form>
         </div>
     </div>
