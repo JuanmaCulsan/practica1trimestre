@@ -10,7 +10,11 @@
             margin: 0;
         }
         .header{
-            background-color: blue;
+            background: -webkit-linear-gradient(90deg, yellow 10%, orange 90%);
+            background: -moz-linear-gradient(90deg, yellow 10%, orange 90%);
+            background: -ms-linear-gradient(90deg, yellow 10%, orange 90%);
+            background: -o-linear-gradient(90deg, yellow 10%, orange 90%);
+            background: linear-gradient(90deg, yellow 10%, orange 90%);
             overflow: hidden;
         }
 
@@ -31,7 +35,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>Bienvenido</h1>
+        <h1>MECANICOS EDUARDO</h1>
     </div>
 
     <div class="footer">
