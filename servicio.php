@@ -5,7 +5,7 @@
     require 'conexion_vehi.php';
     require 'conexion_servi.php';
 
-    $idUsu= ;
+    //$idUsu= ;
     $idVehi=$_GET[''];
     $idServ=$_GET[''];
     $nomServ=$_GET[''];
