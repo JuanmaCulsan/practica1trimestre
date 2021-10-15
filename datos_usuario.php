@@ -2,12 +2,14 @@
     require("header.php");
     require('conexion.php');
 
-    $usuario = $_GET['nombre'];
-    $contra = $_GET['pass'];
+    //$usuario = $_GET['nombre'];
+    //$contra = $_GET['pass'];
+    $id = $_GET['id_usu'];
  
     //TIENE QUE TENER EL MISMO VALOR QUE LA COLUMNA DE LA TABLA Y EL VALOR QUE QUEREMOS buscar
+    //usar el id_usuario 
     $sql = "SELECT * FROM usuario as us, vehiculos as ve 
-            WHERE nombre='$usuario' and pass='$contra' and us.id_usu=ve.id_usu;"; 
+            WHERE us.id_usu='$id' and us.id_usu=ve.id_usu;"; 
 
     //ESTA FUNCIÓN NOS PIDE LA CONEXION Y LA SENTENCIA SQL
     $results = mysqli_query($conn, $sql);
@@ -19,7 +21,25 @@
         $user = mysqli_fetch_all($results, MYSQLI_ASSOC);
 
         //print_r ($user);
-    }    
+    } 
+    
+    $sql2 = "SELECT * FROM usuario as us 
+            WHERE id_usu='$id'"; 
+
+    //ESTA FUNCIÓN NOS PIDE LA CONEXION Y LA SENTENCIA SQL
+    $results2 = mysqli_query($conn, $sql2);
+
+ 
+    if ($results2 === false) {
+        echo mysqli_error($conn);
+    } else {
+        $user2 = mysqli_fetch_all($results2, MYSQLI_ASSOC);
+
+        //print_r ($user);
+    } 
+    
+    
+    
 ?>
 
 <!DOCTYPE html>
@@ -38,10 +58,14 @@
                 <p>No hay ningún usuario registrado</p>
             <?php else: ?>
                     <h1>Bienvenido/a</h1>
-                    <p class="p"><?= $usuario; ?></p>  
-                    <!--<p><?= $contra; ?></p>-->
+                    <?php foreach($user2 as $us): ?>
+                        <p class="p"><?=$us ['nombre']; ?></p>  
+                        <p class="p"><?=$us ['pass']; ?></p>
+                        <p class="p"><?=$us ['login']; ?></p>
+                    <?php endforeach; ?>
                     <br>
                     <form action="cambiodatos.php">
+                        <input type="hidden" value=<?=$id?> name='id_usu'>
                         <input type="submit" class="submit" value="EDITAR"></input>   
                     </form>
                     <br>      
