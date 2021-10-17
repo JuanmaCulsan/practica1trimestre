@@ -1,6 +1,6 @@
 <?php
     require("header.php");
-    require("conexion.php");
+    require("conexiones/conexion.php");
 
     $n_usuario=['usuario'];
     $n_pass=['pass'];
@@ -17,7 +17,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styleNuevoUsuario.css">    
+        <link rel="stylesheet" href="estilos/styleNuevoUsuario.css">    
         <title>Document</title>
     </head>
     <body>

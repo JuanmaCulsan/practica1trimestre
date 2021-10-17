@@ -1,6 +1,6 @@
 <?php
     require("header.php");
-    require('conexion.php');
+    require('conexiones/conexion.php');
 
     //$usuario = $_GET['nombre'];
     //$contra = $_GET['pass'];
@@ -48,7 +48,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="lista_usu_veh.css">
+    <link rel="stylesheet" href="estilos/lista_usu_veh.css">
     <title>Document</title>
 </head>
 <body>
@@ -66,7 +66,7 @@
                     <br>
                     <form action="cambiodatos.php">
                         <input type="hidden" value=<?=$id?> name='id_usu'>
-                        <input type="submit" class="submit" value="EDITAR"></input>   
+                        <input type="submit" class="submit" value="EDITAR USUARIO"></input>   
                     </form>
                     <br>      
                 <!--tabla-->

@@ -1,16 +1,23 @@
 <?php 
     require 'header.php';
-    require 'conexion.php';
-    require 'conexion_usu.php';
-    require 'conexion_vehi.php';
-    require 'conexion_servi.php';
+    require 'conexiones/conexion.php';
+    require 'conexiones/conexion_usu.php';
+    require 'conexiones/conexion_vehi.php';
+    require 'conexiones/conexion_servi.php';
 
-    //$idUsu= ;
-    $idVehi=$_GET[''];
-    $idServ=$_GET[''];
-    $nomServ=$_GET[''];
-    $fechaServ=$_GET[''];
-    $kmServ=$_GET[''];
+    $idServ=$_GET['idSer'];
+
+    $filasServ=mysqli_num_rows($res);
+
+    $idVehi= $_GET['idVe'];
+
+    foreach ($vehi as $v) {
+        
+        if ($v['id_veh']==$idVehi) {
+            
+            $idUsu=$v['id_usu'];
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +26,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <link rel="stylesheet" href="estilos/lista_usu_veh.css">
     <title>Servicio</title>
 </head>
 <body>
@@ -27,61 +34,100 @@
     <main>
 
     <table border="1">
-
         <?php foreach ($usu as $us): ?>
-            <?php if ($us['id_usu']==2): ?>
+            <?php if ($us['id_usu']==$idUsu): ?>
                 
                 <hr><h1><?= $us['nombre']; ?></h1></hr>
                 
-            <?php $idUsu=$us['id_usu']?>
             <?php endif?>   
         <?php endforeach; ?>
 
         <tr><td><h3>Vehiculo</h3></td></tr>
         <?php foreach ($vehi as $car): ?>
-            <?php if ($car['id_veh']==2): ?>
+            <?php if ($car['id_veh']==$idVehi): ?>
             <tr>
                 <td><label><?= $car['matricula']; ?></label></td>
                 <td><label><?= $car['marca']; ?></label></td>
                 <td><label><?= $car['modelo']; ?></label></td>
                 
             </tr>
-            <?php $idVehi=$car['id_veh']?>
             <?php endif?>   
         <?php endforeach; ?>
     </table>
+                
+    <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST"&&$idServ==$_POST['idSer']) {
 
-    <form>
+            
+            $sql = "UPDATE servicios 
+                SET descrip='". $_POST['tipoServicio'] . "',fecha='". $_POST['fecha'] . "',km='". $_POST['km'] . "' WHERE id_ser='".$idServ."'AND id_veh='".$idVehi."';";
 
-        <h3>Servicio</h3>
+            $results = mysqli_query($conn, $sql);
 
-        <?php if (empty($servs)): ?>
+            if ($results === false) {
+ 
+                echo mysqli_error($conn);
+         
+            } else {
+         
+                $id = mysqli_insert_id($conn);
+                echo "Updated record with ID: $id";
+            }
+        }
+        else if($_SERVER["REQUEST_METHOD"] == "POST"){
+            
+            $sql = "INSERT INTO servicios (id_ser, id_veh, tipoServicio, fecha, km)
+                VALUES ('" ($filasSer+1) . "','". $idVehi ."','". $_POST['tipoServicio'] . "','". $_POST['fecha'] . "','". $_POST['km'] . "');";
 
-            <label>Tipo de servicio</label><label>Fecha</label><br>
-            <input type="text" name="tipoServicio">
-            <input type="text" name="fecha"> <br>
+            $results = mysqli_query($conn, $sql);
+
+            if ($results === false) {
+ 
+                echo mysqli_error($conn);
+         
+            } else {
+         
+                $id = mysqli_insert_id($conn);
+                echo "Inserted record with ID: $id";
+            }
+        }
+    ?>
+
+    <h3>Servicio</h3>
         
-            <label>Descripcion</label><br>
-            <input type="text" name="descripcion">
+    <?php if (is_null($idServ)||($idServ>$filasServ)||$idServ<=0): ?>
+
+        <form method="POST">
+            <label>Tipo de servicio</label><label>Fecha</label><br>
+            <input type="text" name="tipoServicio" placeholder="Inserte datos">
+            <input type="date" name="fecha"> <br>
+            <input type="hidden" name="idSer" value=<?= ($filasServ)+1?>>
+            <label>km</label><br>
+            <input type="text" name="km" placeholder="Inserte datos">
             <input type="submit" value="GUARDAR">
-        <?php else: ?>
+        </form>
+    <?php else: ?>
+
+        <form method="POST">
 
             <?php foreach ($servs as $se): ?>
-                <?php if ($se['id_veh']==$idVehi): ?>
+                <?php if ($se['id_ser']==$idServ): ?>
 
                     <label>Tipo de servicio</label><label>Fecha</label><br>
-                    <input type="text" name="tipoServicio" placeholder=<?= $se['descrip']; ?>>
-                    <input type="text" name="fecha" placeholder=<?= $se['fecha']; ?>> <br>
-                
+                    <input type="text" name="tipoServicio" value=<?= $se['descrip']; ?> placeholder="Inserte datos">
+                    <input type="date" name="fecha" value=<?= $se['fecha']; ?>> <br>
+                    
                     <label>Km</label><br>  
-                    <input type="text" name="km" placeholder=<?= $se['km']; ?>>
+                    <input type="text" name="km" value=<?= $se['km']; ?> placeholder="Inserte datos">
+                    <input type="hidden" name="idSer" value=<?= $idServ?>>
                     <input type="submit"  value="GUARDAR">
+                    <input type="reset" value="Reiniciar">
 
                 <?php endif?>
             <?php endforeach; ?>
-        <?php endif?>
+        </form>
+    <?php endif?>
     
-    </form>
     </main>
 
 </body>
