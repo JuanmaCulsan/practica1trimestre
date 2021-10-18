@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body{
-            padding: 0;
-            margin: 0;
+            padding: 0px;
+            margin: 0px;
         }
         .header{
             background: -webkit-linear-gradient(90deg, yellow 10%, orange 90%);
@@ -19,7 +19,16 @@
         }
 
         .header h1{
-            margin-left: 2%;
+            width: 100%;
+            text-align: center;
+            align-content: center;
+            margin-top: 7px;
+            
+        }
+
+        .logo{
+            text-decoration: none;
+            color: black;
         }
 
         .footer{
@@ -35,7 +44,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>MECANICOS EDUARDO</h1>
+        <a href="logging.php" class="logo"><h1>MECANICOS EDUARDO</h1></a>
     </div>
 
     <div class="footer">

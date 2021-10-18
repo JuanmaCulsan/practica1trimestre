@@ -19,7 +19,8 @@
         } else {
      
             $id = mysqli_insert_id($conn);
-            echo "Inserted record with ID: $id";
+            //echo "Inserted record with ID: $id";
+            header("location: http://localhost:81/pruebaclone/practica1trimestre/logging.php");
      
         }
      
@@ -38,8 +39,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos/style.css">
-    <title>Document</title>
-    <div class="container">
+    <title>Document</title>  
+</head>
+<body>
+<div class="container">
         <div class="content">
             <form class="form" method="POST">
                 <label for="">NOMBRE</label>
@@ -56,8 +59,5 @@
             </form>
         </div>
     </div>
-</head>
-<body>
-    
 </body>
 </html>

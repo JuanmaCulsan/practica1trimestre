@@ -1,4 +1,5 @@
 <?php 
+
     require 'header.php';
     require 'conexiones/conexion.php';
     require 'conexiones/conexion_usu.php';
@@ -71,13 +72,13 @@
             } else {
          
                 $id = mysqli_insert_id($conn);
-                echo "Updated record with ID: $id";
+                echo "Servicio editado correctamente";
             }
         }
         else if($_SERVER["REQUEST_METHOD"] == "POST"){
             
-            $sql = "INSERT INTO servicios (id_ser, id_veh, tipoServicio, fecha, km)
-                VALUES ('" ($filasSer+1) . "','". $idVehi ."','". $_POST['tipoServicio'] . "','". $_POST['fecha'] . "','". $_POST['km'] . "');";
+            $sql = "INSERT INTO servicios (id_ser, id_veh, descrip, fecha, km)
+                VALUES ('". $_POST['idSer'] . "','". $idVehi ."','". $_POST['tipoServicio'] . "','". $_POST['fecha'] . "','". $_POST['km'] . "');";
 
             $results = mysqli_query($conn, $sql);
 
@@ -88,7 +89,7 @@
             } else {
          
                 $id = mysqli_insert_id($conn);
-                echo "Inserted record with ID: $id";
+                echo "Servicio creado correctamente";
             }
         }
     ?>

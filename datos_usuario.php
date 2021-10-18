@@ -54,7 +54,7 @@
 <body>
     <div class="container">
         <div class="content">
-            <?php if (empty($user)): ?>
+            <?php if (empty($user2)): ?>
                 <p>No hay ningún usuario registrado</p>
             <?php else: ?>
                     <h1>Bienvenido/a</h1>
@@ -63,27 +63,35 @@
                         <p class="p"><?=$us ['pass']; ?></p>
                         <p class="p"><?=$us ['login']; ?></p>
                     <?php endforeach; ?>
-                    <br>
                     <form action="cambiodatos.php">
                         <input type="hidden" value=<?=$id?> name='id_usu'>
                         <input type="submit" class="submit" value="EDITAR USUARIO"></input>   
-                    </form>
-                    <br>      
+                    </form>   
                 <!--tabla-->
                 <table class="table">
                     <tr>
-                        <th>matricula</th>
-                        <th>marca</th>
-                        <th>modelo</th>
+                        <th>MATRICULA</th>
+                        <th>MARCA</th>
+                        <th>MODELO</th>
+                        <th>EDITAR</th>
                     </tr>
                     <?php foreach($user as $us): ?>
                         <tr>
                             <td><?=$us ['matricula']; ?></td>
                             <td><?=$us ['marca']; ?></td>
                             <td><?=$us ['modelo']; ?></td>
+                            <form action="vehiculo.php" method="GET">
+                                <input type="hidden" value=<?=$us ['id_veh']?> name='id_veh'>
+                                <td><input type="submit" value="editar vehiculo" class="boton_veh"></td>
+                            </form>
                         </tr>
                     <?php endforeach; ?>
                 </table>
+                <br>
+                <form action="vehiculo.php" method="GET">
+                    <input type="hidden" value=<?=$id?> name='id_usu'>
+                    <td><input type="submit" value="+ AÑADIR VEHICULO" class="submit"></td>
+                </form>
             <?php endif; ?>
         </div>
     </div>
