@@ -82,6 +82,7 @@
                             <td><?=$us ['modelo']; ?></td>
                             <form action="vehiculo.php" method="GET">
                                 <input type="hidden" value=<?=$us ['id_veh']?> name='id_veh'>
+                                <input type="hidden" value=<?=$id?> name='id_usu'>
                                 <td><input type="submit" value="editar vehiculo" class="boton_veh"></td>
                             </form>
                         </tr>
@@ -90,6 +91,7 @@
                 <br>
                 <form action="vehiculo.php" method="GET">
                     <input type="hidden" value=<?=$id?> name='id_usu'>
+                    <input type="hidden" value=0 name='id_veh'>
                     <td><input type="submit" value="+ AÑADIR VEHICULO" class="submit"></td>
                 </form>
             <?php endif; ?>

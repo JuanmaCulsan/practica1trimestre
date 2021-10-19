@@ -10,13 +10,13 @@
 
     $filasServ=mysqli_num_rows($res);
 
-    $idVehi= $_GET['idVe'];
+    $idVehi= $_GET['id_veh'];
 
     foreach ($vehi as $v) {
         
         if ($v['id_veh']==$idVehi) {
             
-            $idUsu=$v['id_usu'];
+            $id_usu=$v['id_usu'];
         }
     }
 ?>
@@ -36,7 +36,7 @@
 
     <table border="1">
         <?php foreach ($usu as $us): ?>
-            <?php if ($us['id_usu']==$idUsu): ?>
+            <?php if ($us['id_usu']==$id_usu): ?>
                 
                 <hr><h1><?= $us['nombre']; ?></h1></hr>
                 

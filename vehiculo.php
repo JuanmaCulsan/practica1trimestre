@@ -6,8 +6,8 @@
     require 'conexiones/conexion_vehi.php';
     require 'conexiones/conexion_servi.php';
 
-    $idUsu=2;//$_GET['idUsu'];
-    $idVehi= 2;//$_GET['idVe'];
+    $id_usu=$_GET['id_usu'];
+    $idVehi= $_GET['id_veh'];
 
     $filasV=mysqli_num_rows($resv);
 
@@ -27,12 +27,50 @@
 
 
             <?php foreach ($usu as $us):?>
-                <?php if ($us['id_usu']==$idUsu): ?>
+                <?php if ($us['id_usu']==$id_usu): ?>
                 
                     <hr><h1><?= $us['nombre']; ?></h1></hr>
                 
                 <?php endif?>   
             <?php endforeach; ?>
+
+            <?php
+                if ($_SERVER["REQUEST_METHOD"] == "POST"&&$idVehi==$_POST['id_veh']) {
+
+                    
+                    $sql = "UPDATE vehiculos 
+                        SET matricula='". $_POST['matri'] . "',marca='". $_POST['marc'] . "',modelo='". $_POST['model'] . "' WHERE id_veh='".$idVehi."'AND id_usu='".$id_usu."';";
+
+                    $results = mysqli_query($conn, $sql);
+
+                    if ($results === false) {
+        
+                        echo mysqli_error($conn);
+                
+                    } else {
+                
+                        $id = mysqli_insert_id($conn);
+                        echo "Vehiculo editado correctamente";
+                    }
+                }
+                else if($_SERVER["REQUEST_METHOD"] == "POST"){
+                    
+                    $sql = "INSERT INTO vehiculos (id_usu, matricula, marca, modelo)
+                        VALUES ('". $id_usu ."','". $_POST['matri'] . "','". $_POST['marc'] . "','". $_POST['model'] . "');";
+
+                    $results = mysqli_query($conn, $sql);
+
+                    if ($results === false) {
+        
+                        echo mysqli_error($conn);
+                
+                    } else {
+                
+                        $id = mysqli_insert_id($conn);
+                        echo "Vehiculo creado correctamente";
+                    }
+                }
+            ?>
             
             <h3>Vehiculo</h3>
             <table>
@@ -46,13 +84,15 @@
                 <?php if (is_null($idVehi)||($idVehi>$filasV)||$idVehi<=0): ?>
                     <form method="POST">
                         <tr>
-                            <td><input type="text" name="tipoServicio" placeholder="Inserte datos"></td>
-                            <td><input type="text" name="tipoServicio" placeholder="Inserte datos"></td>
-                            <td><input type="text" name="tipoServicio" placeholder="Inserte datos"></td>
+                            <td><input type="text" name="matri" placeholder="Inserte datos"></td>
+                            <td><input type="text" name="marc" placeholder="Inserte datos"></td>
+                            <td><input type="text" name="model" placeholder="Inserte datos"></td>
                         </tr>
                         <tr>
                             <td>
+                            <input type="hidden" name="id_veh" value=<?= $filasV+1?>>
                             <input type="reset" value="Reset">
+                            <input type="submit" value="GUARDAR">
                             </td>
                         </tr>
                     </form>
@@ -63,12 +103,13 @@
                             <form method="POST">    
 
                                 <tr>
-                                    <td><input type="text" name="tipoServicio" value=<?= $car['matricula']; ?> placeholder="Inserte datos"></td>
-                                    <td><input type="text" name="tipoServicio" value=<?= $car['marca']; ?> placeholder="Inserte datos"></td>
-                                    <td><input type="text" name="tipoServicio" value=<?= $car['modelo']; ?> placeholder="Inserte datos"></td>
+                                    <td><input type="text" name="matri" value=<?= $car['matricula']; ?> placeholder="Inserte datos"></td>
+                                    <td><input type="text" name="marc" value=<?= $car['marca']; ?> placeholder="Inserte datos"></td>
+                                    <td><input type="text" name="model" value=<?= $car['modelo']; ?> placeholder="Inserte datos"></td>
                                 </tr>
                                 <tr>
                                     <td>
+                                    <input type="hidden" name="id_veh" value=<?= $idVehi?>>
                                     <input type="submit" value="GUARDAR">
                                     <input type="reset" value="Reset">
                                     </td>
@@ -82,11 +123,15 @@
             <h3>Servicios</h3>
 
             <table class="table">
+                
+                <?php if ($idVehi>0):?>
                 <tr>
                     <th>Tipo de servicio</th>
                     <th>Fecha</th>
                     <th>Km</th>
                 </tr>
+                <?php endif;?>
+                
                 <?php foreach($servs as $se): ?>
                     <?php if($idVehi==$se['id_veh']): ?>
                     <tr>
@@ -96,7 +141,7 @@
                         <td>
                             <form action="servicio.php">
                                 <input type="hidden" name="idSer" value=<?= $se['id_ser']?>>  
-                                <input type="hidden" name="idVe" value=<?= $idVehi?>>   
+                                <input type="hidden" name="id_veh" value=<?= $idVehi?>>   
                                 <input type="submit" value="EDITAR">
                             </form>
                         </td>
@@ -109,7 +154,7 @@
                         <?php if ($idVehi>0):?>
                             <form action="servicio.php">
                                 <input type="hidden" name="idSer" value=0>
-                                <input type="hidden" name="idVe" value=<?= $idVehi?>>
+                                <input type="hidden" name="id_veh" value=<?= $idVehi?>>
                                 <input type="submit" value="NUEVO">
                             </form>
                         <?php else:?>

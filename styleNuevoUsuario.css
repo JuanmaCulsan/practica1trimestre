@@ -1,0 +1,12 @@
+.container{
+    margin: 200px;
+    padding: 5px;
+}
+
+.content{
+    border: 1px black solid;
+    display: inline-block;
+    item-align: center;
+    padding: 5px;
+}
+
