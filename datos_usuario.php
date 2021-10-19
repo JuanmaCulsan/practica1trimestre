@@ -5,6 +5,7 @@
     //$usuario = $_GET['nombre'];
     //$contra = $_GET['pass'];
     $id = $_GET['id_usu'];
+    $idVe=0;
  
     //TIENE QUE TENER EL MISMO VALOR QUE LA COLUMNA DE LA TABLA Y EL VALOR QUE QUEREMOS buscar
     //usar el id_usuario 
@@ -38,8 +39,6 @@
         //print_r ($user);
     } 
     
-    
-    
 ?>
 
 <!DOCTYPE html>
@@ -70,10 +69,21 @@
                 <!--tabla-->
                 <table class="table">
                     <tr>
-                        <th>MATRICULA</th>
-                        <th>MARCA</th>
-                        <th>MODELO</th>
-                        <th>EDITAR</th>
+                        
+                        <?php foreach ($user as $dato) {
+                            
+                            if ($dato['id_usu']==$id) {
+            
+                                $idVe=$dato['id_veh'];
+                            }
+                        }
+                        ?>
+                        <?php if ($idVe>0):?>
+                            <th>MATRICULA</th>
+                            <th>MARCA</th>
+                            <th>MODELO</th>
+                            <th>EDITAR</th>
+                        <?php endif?>
                     </tr>
                     <?php foreach($user as $us): ?>
                         <tr>
