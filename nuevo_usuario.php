@@ -1,49 +1,35 @@
 <?php
-    require("header.php");
-    require("conexiones/conexion.php");
+  
+    include("con_db.php");
 
-    $n_usuario=['usuario'];
-    $n_pass=['pass'];
-    $n_loggin=['login'];
-    $n_matricula=['matricula'];
-    $n_marca=['marca'];
-    $n_modelo=['modelo'];
+   if(isset($_POST["register"])){
 
-    ?>
+    if (strlen($_POST["name"]) >= 1 &&
+    strlen($_POST["login"]) >= 1 &&
+    strlen($_POST["pass"]) >= 1 ){
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="estilos/styleNuevoUsuario.css">    
-        <title>Document</title>
-    </head>
-    <body>
-        <div class="container">
-        <h2>¡Registrate!</h2>
-            <div class="content">
-                <form action="" method="GET">
-                    <label for="">Nombre</label>
-                    <input type="text" name="usuario">
-                    <br>
-                    <label for="">Nombre de usuario</label>
-                    <input type="text" name="login">
-                    <br>
-                    <label for="">Contraseña</label>
-                    <input type="text" name="pass">
-                    <br>
-                    <label for="">Matricula</label>
-                    <input type="text" name="matricula">
-                    <br>
-                    <label for="">Marca</label>
-                    <input type="text" name="marca">
-                    <br>
-                    <label for="">Modelo</label>
-                    <input type="text" name="modelo">
-                </form>
-            </div>
-        </div>
-    </body>
-    </html>
+        $name=trim($_POST["name"]);
+        $login=trim ($_POST["login"]);
+        $pass=trim ($_POST["pass"]);
+        $consulta="INSERT INTO usuario( nombre, login, pass) VALUES ('".$name."','".$login."','".$pass."')";
+        $resultado=mysqli_query($conex,$consulta);
+
+        if($resultado){
+            ?>
+            <h3 class="ok">Te has registardo exitosamente.</h3>
+            <?php
+        }else{
+            ?>
+            <h3 class="bad">Has tenido un error.</h3>
+            <?php
+
+        }
+    }else{
+        ?>
+            <h3 class="bad">Por favor complete los campos correctamente.</h3>
+            <?php
+    }
+
+   }
+
+?>
