@@ -31,14 +31,12 @@
     <title>Servicio</title>
 </head>
 <body>
-    
-    <main>
 
     <table border="1">
         <?php foreach ($usu as $us): ?>
             <?php if ($us['id_usu']==$id_usu): ?>
                 
-                <hr><h1><?= $us['nombre']; ?></h1></hr>
+                <h1><?= $us['nombre']; ?></h1>
                 
             <?php endif?>   
         <?php endforeach; ?>
@@ -128,8 +126,6 @@
             <?php endforeach; ?>
         </form>
     <?php endif?>
-    
-    </main>
 
 </body>
 </html>
