@@ -1,6 +1,5 @@
 <?php
-  
-    include("con_db.php");
+    include("conexiones/conexion.php");
 
    if(isset($_POST["register"])){
 
@@ -12,15 +11,15 @@
         $login=trim ($_POST["login"]);
         $pass=trim ($_POST["pass"]);
         $consulta="INSERT INTO usuario( nombre, login, pass) VALUES ('".$name."','".$login."','".$pass."')";
-        $resultado=mysqli_query($conex,$consulta);
+        $resultado=mysqli_query($conn,$consulta);
 
         if($resultado){
             ?>
-            <h3 class="ok">Te has registardo exitosamente.</h3>
+                <h3 class="ok">Te has registardo exitosamente.</h3>
             <?php
         }else{
             ?>
-            <h3 class="bad">Has tenido un error.</h3>
+                <h3 class="bad">Has tenido un error.</h3>
             <?php
 
         }
@@ -28,8 +27,6 @@
         ?>
             <h3 class="bad">Por favor complete los campos correctamente.</h3>
             <?php
+        }
     }
-
-   }
-
 ?>

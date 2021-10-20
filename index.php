@@ -1,9 +1,14 @@
+<?php
+    require("header.php");
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Registrar usuario</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="estilo.css">
+    <link rel="stylesheet" href="estilos/ccs_nuevo_usuario.css">
 
 
 </head>
@@ -18,7 +23,8 @@
 </form>
 
 <?php
-    include("registrar.php");
+    include("nuevo_usuario.php");
+    
 ?>
 
 </body>

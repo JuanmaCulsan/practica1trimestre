@@ -2,10 +2,10 @@
     require("header.php");
     require('conexiones/conexion.php');
 
-    $id = $_GET['id_usu'];
+    $id=$_GET['id_usu'];
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-     
+
         $sql2 = "UPDATE usuario 
                 SET nombre='".$_POST['nombre']."', login='".$_POST['login']."', pass='".$_POST['pass']."' 
                 WHERE id_usu='".$id."'";
@@ -17,11 +17,9 @@
             echo mysqli_error($conn);
      
         } else {
-     
+            header("location: http://localhost:81/pruebaclone/practica1trimestre/datos_usuario.php?id_usu=$id");
             $id = mysqli_insert_id($conn);
             //echo "Inserted record with ID: $id";
-            header("location: http://localhost:81/pruebaclone/practica1trimestre/logging.php");
-     
         }
      
     }
@@ -54,7 +52,7 @@
                 <label for="">LOGIN</label>
                 <input type="text" name="login">
                 <br>
-                <input type="hidden" value=<?=$id?> name="id_usu">
+                <input type="hidden" value=<?= $id?> name="id_usu">
                 <input type="submit" >
             </form>
         </div>

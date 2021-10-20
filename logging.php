@@ -22,7 +22,7 @@
                 <input type="text" name="pass" class="username">
                 <input type="submit" class="submit" value="aceptar">
                 -->
-                <p>Eres nuevo/a <a href="nuevo_usuario.php">pincha aqui</a>
+                <p>Eres nuevo/a <a href="index.php">pincha aqui</a>
             </form>
         </div>
     </div>
