@@ -1,6 +1,6 @@
 <?php
     $db_host = "localhost";
-    $db_name = "arcoiris";
+    $db_name = "practi1trimestre";
     $db_user = "root";
     $db_pass = "";
     
