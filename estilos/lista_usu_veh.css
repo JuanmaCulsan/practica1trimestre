@@ -3,37 +3,81 @@ body{
     padding: 0px;
     width: 100%;
     height: 100%;
+    background-image: url("mec_log.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .container{
-    margin: 0px 0px 0px 10px;
-    padding: 0px;
-    display: flex;
-    justify-content: center;
-
+  margin: 0px 0px 0px 10px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
 }
 
 .content{
-    text-align: center;
-    vertical-align: middle;
-    align-items: center;
-
+  margin-top: 1%;
+  text-align: center;
+  vertical-align: middle;
+  align-items: center;
+  background-color: #ccddff;
+  padding: 1%;
+  border-radius: 25px;
+  box-shadow: 5px 10px #EEECF1;
 }
+
 
 .p{
     font-size: 30px;
     background-color: #AFE9FF;
     border-radius: 15px;
+    width: 40%;
+    text-align: center;
+    margin-left: 30%;
+}
+
+#nombre, #vehiculos, #servicios{
+  color: black;
+  align-items: center;
+  width: 200px;
+  margin-left: 35%;
+}
+
+#nombre{
+  font-size: 50px;
+  margin-right: 35%;
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
+
+#servicios, #vehiculos, #serv{
+  margin-top: 10%;
+  font-size: 30px;
+}
+
+#bienvenido{
+  background-color: beige;
+  width: auto;
+
+}
+
+#anuncio{
+  background-color: beige;
+}
+
+#tabla_veh{
+  margin-top: 0;
 }
 
 table {
-    width: 700px;
-    border-right-color: #ffffff;
-    margin-top: 100px;
-    font-size: 18px;
+  width: 700px;
+  border-right-color: #ffffff;
+  margin-top: 20px;
+  margin-bottom: 25px;
+  font-size: 18px;
     /* /* border: 1px solid #343a40; */
-    border-collapse: collapse; 
-  }
+  border-collapse: collapse
+}
   
   th, td {
     /* border: 1px solid #343a40; */
@@ -84,25 +128,25 @@ tbody tr:nth-child(even){
 }
 
 .submit{
-    margin-top: 10px;
-    border-radius: 5px;
-    font-size: 20px;
-    padding: 14px 80px;
-    cursor: pointer;
-    color: #fff;
-    background-color: #00A6FF;
-    font-size: 20px;
-    font-family: 'Roboto';
-    font-weight: 70;
-    border: 1px solid #fff;
-    box-shadow: 2px 2px 5px #AFE9FF;
-    transition-duration: 0.5s;
-    -webkit-transition-duration: 0.5s;
-    -moz-transition-duration: 0.5s;
+  margin-top: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 14px 80px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #00A6FF;
+  font-size: 20px;
+  font-family: 'Roboto';
+  font-weight: 70;
+  border: 1px solid #fff;
+  box-shadow: 2px 2px 5px #AFE9FF;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
 }
 
 .submit:hover {
-    color: #006398;
-    border: 1px solid #006398;
-    box-shadow: 2px 2px 20px #AFE9FF;
-  }
+  color: #006398;
+  border: 1px solid #006398;
+  box-shadow: 2px 2px 20px #AFE9FF;
+}

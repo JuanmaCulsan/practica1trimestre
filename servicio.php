@@ -97,28 +97,45 @@
         
     <?php if (is_null($idServ)||($idServ>$filasServ)||$idServ<=0): ?>
 
+        
         <form method="POST">
-            <label>Tipo de servicio</label><label>Fecha</label><br>
-            <input type="text" name="tipoServicio" placeholder="Inserte datos">
-            <input type="date" name="fecha"> <br>
+
+            <table>
+                <tr>
+                    <th>Tipo de servicio</th>
+                    <th>Fecha</th>
+                    <th>km</th>
+                </tr>
+                <tr>
+                    <td><input type="text" name="tipoServicio" placeholder="Inserte datos"></td>
+                    <td><input type="date" name="fecha"></td>
+                    <td><input type="text" name="km" placeholder="Inserte datos"></td>
+                </tr>
+            </table>
             <input type="hidden" name="idSer" value=<?= ($filasServ)+1?>>
-            <label>km</label><br>
-            <input type="text" name="km" placeholder="Inserte datos">
             <input type="submit" value="GUARDAR">
         </form>
+        
     <?php else: ?>
 
         <form method="POST">
 
             <?php foreach ($servs as $se): ?>
                 <?php if ($se['id_ser']==$idServ): ?>
+                    <table>
+                        <tr>
+                            <th>Tipo de servicio</th>
+                            <th>Fecha</td>
+                            <th>Km</th>
+                        </tr>
+                        
+                        <tr>
+                            <td><input type="text" name="tipoServicio" value=<?= $se['descrip']; ?> placeholder="Inserte datos"></td>
+                            <td><input type="date" name="fecha" value=<?= $se['fecha']; ?>></td>
+                            <td><input type="text" name="km" value=<?= $se['km']; ?> placeholder="Inserte datos"></td>
+                        </tr>
+                    </table>
 
-                    <label>Tipo de servicio</label><label>Fecha</label><br>
-                    <input type="text" name="tipoServicio" value=<?= $se['descrip']; ?> placeholder="Inserte datos">
-                    <input type="date" name="fecha" value=<?= $se['fecha']; ?>> <br>
-                    
-                    <label>Km</label><br>  
-                    <input type="text" name="km" value=<?= $se['km']; ?> placeholder="Inserte datos">
                     <input type="hidden" name="idSer" value=<?= $idServ?>>
                     <input type="submit"  value="GUARDAR">
                     <input type="reset" value="Reiniciar">

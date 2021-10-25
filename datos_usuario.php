@@ -56,24 +56,22 @@
             <?php if (empty($user2)): ?>
                 <p>No hay ningún usuario registrado</p>
             <?php else: ?>
-                    <h1>Bienvenido/a</h1>
+                    <h1 id="bienvenido">Bienvenido/a</h1>
                     <?php foreach($user2 as $us): ?>
-                        <p class="p"><?=$us ['nombre']; ?></p>  
-                        <p class="p"><?=$us ['pass']; ?></p>
-                        <p class="p"><?=$us ['login']; ?></p>
+                        <p class="p">Nombre: <?=$us ['nombre']; ?></p>  
+                        <!--<p class="p"><?=$us ['pass']; ?></p>-->
+                        <p class="p">Login: <?=$us ['login']; ?></p>
                     <?php endforeach; ?>
                     <form action="cambiodatos.php">
                         <input type="hidden" value=<?=$id?> name='id_usu'>
                         <input type="submit" class="submit" value="EDITAR USUARIO"></input>   
                     </form>   
                 <!--tabla-->
-                <table class="table">
+                <table >
                     <tr>
                         
                         <?php foreach ($user as $dato) {
-                            
                             if ($dato['id_usu']==$id) {
-            
                                 $idVe=$dato['id_veh'];
                             }
                         }

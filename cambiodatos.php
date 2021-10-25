@@ -21,7 +21,6 @@
             $id = mysqli_insert_id($conn);
             //echo "Inserted record with ID: $id";
         }
-     
     }
     
     
@@ -53,7 +52,7 @@
                 <input type="text" name="login">
                 <br>
                 <input type="hidden" value=<?= $id?> name="id_usu">
-                <input type="submit" >
+                <input type="submit" class="submit">
             </form>
         </div>
     </div>
