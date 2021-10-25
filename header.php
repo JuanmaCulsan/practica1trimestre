@@ -39,6 +39,7 @@
             background-color: #23bac4;
             color: white;
             text-align: center;
+            font-size: 20px;
         }
     </style>
 </head>
