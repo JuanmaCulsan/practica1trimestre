@@ -58,9 +58,9 @@
             <?php else: ?>
                     <h1 id="bienvenido">Bienvenido/a</h1>
                     <?php foreach($user2 as $us): ?>
-                        <p class="p">Nombre: <?=$us ['nombre']; ?></p>  
+                        <p id="usuname">Nombre: <?=$us ['nombre']; ?></p>  
                         <!--<p class="p"><?=$us ['pass']; ?></p>-->
-                        <p class="p">Login: <?=$us ['login']; ?></p>
+                        <p id="usulogin">Login: <?=$us ['login']; ?></p>
                     <?php endforeach; ?>
                     <form action="cambiodatos.php">
                         <input type="hidden" value=<?=$id?> name='id_usu'>

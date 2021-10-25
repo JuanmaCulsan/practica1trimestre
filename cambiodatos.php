@@ -6,24 +6,28 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        $sql2 = "UPDATE usuario 
+
+        if(($_POST['nombre']==null)||($_POST['login']==null)||($_POST['pass']==null)){
+            echo "rellene los campos";
+        }
+        else{
+            $sql2 = "UPDATE usuario 
                 SET nombre='".$_POST['nombre']."', login='".$_POST['login']."', pass='".$_POST['pass']."' 
                 WHERE id_usu='".$id."'";
      
-        $results2 = mysqli_query($conn, $sql2);
+            $results2 = mysqli_query($conn, $sql2);
      
-        if ($results2 === false) {
+            if ($results2 === false) {
      
             echo mysqli_error($conn);
      
-        } else {
-            header("location: http://localhost:81/pruebaclone/practica1trimestre/datos_usuario.php?id_usu=$id");
-            $id = mysqli_insert_id($conn);
-            //echo "Inserted record with ID: $id";
-        }
-    }
-    
-    
+            } else {
+                header("location: http://localhost:81/pruebaclone/practica1trimestre/datos_usuario.php?id_usu=$id");
+                $id = mysqli_insert_id($conn);
+                //echo "Inserted record with ID: $id";
+            }
+        }  
+    } 
     //$contra = $_GET['pass'];
     //$log = $_GET['login'];
   
