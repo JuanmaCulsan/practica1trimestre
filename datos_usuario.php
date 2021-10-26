@@ -56,7 +56,7 @@
             <?php if (empty($user2)): ?>
                 <p>No hay ningún usuario registrado</p>
             <?php else: ?>
-                    <h1 id="bienvenido">Bienvenido/a</h1>
+                    <h1 class="bienvenido">Bienvenido/a</h1>
                     <?php foreach($user2 as $us): ?>
                         <p id="usuname">Nombre: <?=$us ['nombre']; ?></p>  
                         <!--<p class="p"><?=$us ['pass']; ?></p>-->

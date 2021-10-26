@@ -73,52 +73,40 @@
                 ?>
                 
                 <h3 id="vehiculos" align="center">Vehiculo</h3>
-                <table class="table" align="center">
-                    <tr>
-                        <th>matricula</th>
-                        <th>marca</th>
-                        <th>modelo</th>
-                    </tr>
+                <form method="POST">
+                    <table class="table" align="center">
+                        <tr>
+                            <th>matricula</th>
+                            <th>marca</th>
+                            <th>modelo</th>
+                        </tr>
 
-                    
-                    <?php if (is_null($idVehi)||($idVehi>$filasV)||$idVehi<=0): ?>
-                        <form method="POST">
-                            <tr>
-                                <td><input type="text" name="matri" placeholder="Inserte datos"></td>
-                                <td><input type="text" name="marc" placeholder="Inserte datos"></td>
-                                <td><input type="text" name="model" placeholder="Inserte datos"></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                <input type="hidden" name="id_veh" value=<?= $filasV+1?>>
-                                <input type="reset" value="Reset">
-                                <input type="submit" value="GUARDAR">
-                                </td>
-                            </tr>
-                        </form>
-                    <?php else: ?>
-
-                        <?php foreach ($vehi as $car): ?>
-                            <?php if ($car['id_veh']==$idVehi): ?>
-                                <form method="POST">    
-                                    <tr>
-                                        <td><input type="text" name="matri" value=<?= $car['matricula']; ?> placeholder="Inserte datos"></td>
-                                        <td><input type="text" name="marc" value=<?= $car['marca']; ?> placeholder="Inserte datos"></td>
-                                        <td><input type="text" name="model" value=<?= $car['modelo']; ?> placeholder="Inserte datos"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
+                        
+                        <?php if (is_null($idVehi)||($idVehi>$filasV)||$idVehi<=0): ?>
+                                <tr>
+                                    <td><input type="text" name="matri" placeholder="Inserte datos"></td>
+                                    <td><input type="text" name="marc" placeholder="Inserte datos"></td>
+                                    <td><input type="text" name="model" placeholder="Inserte datos"></td>
+                                    <input type="hidden" name="id_veh" value=<?= $filasV+1?>>
+                                
+                        <?php else: ?>
+                            <?php foreach ($vehi as $car): ?>
+                                <?php if ($car['id_veh']==$idVehi): ?>
+                                        
+                                        <tr>
+                                            <td><input type="text" name="matri" value=<?= $car['matricula']; ?> placeholder="Inserte datos"></td>
+                                            <td><input type="text" name="marc" value=<?= $car['marca']; ?> placeholder="Inserte datos"></td>
+                                            <td><input type="text" name="model" value=<?= $car['modelo']; ?> placeholder="Inserte datos"></td>
+                                        </tr>
                                         <input type="hidden" name="id_veh" value=<?= $idVehi?>>
-                                        <input type="submit" value="GUARDAR">
-                                        <input type="reset" value="Reset">
-                                        </td>
-                                    </tr>
-                                </form>  
-                            <?php endif;?>
-                        <?php endforeach; ?>
-                    <?php endif;?>
-                </table>
-            
+                                <?php endif;?>
+                            <?php endforeach; ?>
+                        <?php endif;?>
+                    </table> 
+                    
+                    <input type="submit" class="submit" value="GUARDAR">
+                    <input type="reset" class="submit" value="RESET">
+                </form> 
                 <h3 align="center" id="servicios">Servicios</h3>
 
                 <table class="table" align="center">
@@ -154,27 +142,22 @@
                                 <form action="servicio.php">
                                     <input type="hidden" name="idSer" value=<?= $se['id_ser']?>>  
                                     <input type="hidden" name="id_veh" value=<?= $idVehi?>>   
-                                    <input type="submit" value="EDITAR">
+                                    <input type="submit" class="boton_veh" value="EDITAR">
                                 </form>
                             </td>
                         </tr>
                         <?php endif;?>
                     <?php endforeach; ?>
-                    
-                    <tr>
-                        <td id="nuevo">
-                            <?php if ($idVehi>0):?>
+                </table>
+                <?php if ($idVehi>0):?>
                                 <form action="servicio.php">
                                     <input type="hidden" name="idSer" value=0>
                                     <input type="hidden" name="id_veh" value=<?= $idVehi?>>
                                     <input type="submit" class="submit" value="NUEVO">
                                 </form>
-                            <?php else:?>
-                                    <p>No se puden crear servicios hasta que el vehiculo no esté creado</p>
-                            <?php endif;?>
-                        </td>
-                    </tr>
-                </table>
+                    <?php else:?>
+                        <p>No se puden crear servicios hasta que el vehiculo no esté creado</p>
+                     <?php endif;?>
             </div>
         </div>
     </body>

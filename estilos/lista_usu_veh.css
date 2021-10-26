@@ -6,6 +6,7 @@ body{
     background-image: url("mec_log.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    Overflow-y:scroll
 }
 
 .container{
@@ -56,10 +57,9 @@ body{
   font-size: 30px;
 }
 
-#bienvenido{
+.bienvenido{
   background-color: beige;
   width: auto;
-
 }
 
 #anuncio{
@@ -150,4 +150,12 @@ tbody tr:nth-child(even){
   color: #006398;
   border: 1px solid #006398;
   box-shadow: 2px 2px 20px #AFE9FF;
+}
+
+.serVeh{
+  margin-top: 10%;
+  color: #e9ecef;
+  background-color: #3d3afb;
+  border-radius: 25px;
+  width: 300px;
 }
