@@ -28,7 +28,7 @@
                 <?php foreach ($usu as $us):?>
                     <?php if ($us['id_usu']==$id_usu): ?>
                     
-                        <h1 id="nombre" align="center"><?= $us['nombre']; ?></h1>
+                        <h1 class="bienvenido" align="center"><?= $us['nombre']; ?></h1>
                     
                     <?php endif?>   
                 <?php endforeach; ?>
@@ -72,7 +72,7 @@
                     }
                 ?>
                 
-                <h3 id="vehiculos" align="center">Vehiculo</h3>
+                <h3 class="serVeh" align="center">Vehiculo</h3>
                 <form method="POST">
                     <table class="table" align="center">
                         <tr>
@@ -107,7 +107,7 @@
                     <input type="submit" class="submit" value="GUARDAR">
                     <input type="reset" class="submit" value="RESET">
                 </form> 
-                <h3 align="center" id="servicios">Servicios</h3>
+                <h3 align="center" class="serVeh">Servicios</h3>
 
                 <table class="table" align="center">
                     
