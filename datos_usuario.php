@@ -2,10 +2,23 @@
     require("header.php");
     require('conexiones/conexion.php');
 
-    //$usuario = $_GET['nombre'];
-    //$contra = $_GET['pass'];
-    $id = $_GET['id_usu'];
+    $loggin=$_GET['loggin'];
+    $passw=$_GET['pass'];
     $idVe=0;
+    $id=0;
+
+    $sql="SELECT id_usu FROM usuario WHERE login='$loggin' AND pass='$passw'";
+
+    $queryIdUsu = mysqli_query($conn,$sql);
+
+    if($queryIdUsu){
+        if(mysqli_num_rows($queryIdUsu)>0){
+            while($row = mysqli_fetch_assoc($queryIdUsu)){
+                $id = $row['id_usu'];
+            }
+        }
+    }
+    
  
     //TIENE QUE TENER EL MISMO VALOR QUE LA COLUMNA DE LA TABLA Y EL VALOR QUE QUEREMOS buscar
     //usar el id_usuario 
@@ -32,13 +45,13 @@
 
  
     if ($results2 === false) {
-        echo mysqli_error($conn);
+            echo mysqli_error($conn);
     } else {
         $user2 = mysqli_fetch_all($results2, MYSQLI_ASSOC);
 
         //print_r ($user);
     } 
-    
+
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +70,15 @@
                 <p>No hay ningún usuario registrado</p>
             <?php else: ?>
                     <h1 class="bienvenido">Bienvenido/a</h1>
+                    <?php 
+                        if (session_status()!=2) {
+                            
+                            $sesion=[$loggin,$passw];
+                            session_start($sesion);
+                            session_name('usuario');
+                            $_SESSION['name']=$loggin;
+                        }
+                    ?>
                     <?php foreach($user2 as $us): ?>
                         <p id="usuname">Nombre: <?=$us ['nombre']; ?></p>  
                         <!--<p class="p"><?=$us ['pass']; ?></p>-->
