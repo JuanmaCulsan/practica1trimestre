@@ -70,15 +70,6 @@
                 <p>No hay ningún usuario registrado</p>
             <?php else: ?>
                     <h1 class="bienvenido">Bienvenido/a</h1>
-                    <?php 
-                        if (session_status()!=2) {
-                            
-                            $sesion=[$loggin,$passw];
-                            session_start($sesion);
-                            session_name('usuario');
-                            $_SESSION['name']=$loggin;
-                        }
-                    ?>
                     <?php foreach($user2 as $us): ?>
                         <p id="usuname">Nombre: <?=$us ['nombre']; ?></p>  
                         <!--<p class="p"><?=$us ['pass']; ?></p>-->

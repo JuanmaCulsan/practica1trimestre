@@ -50,16 +50,21 @@
     </style>
 
 <?php 
-        session_name('usuario');
-        session_start();
-        echo session_status();
-        echo session_name();
+        session_start();    
+        $_SESSION['username'];
+        $_SESSION['password'];
 ?>
 </head>
 <body>
+    
     <div class="header">
         <a href="logging.php" class="logo"><h1>MECANICOS EDUARDO</h1></a>
-        <h3><?php echo $_SESSION['name']?></h3>
+
+        <h3><?php 
+            if (session_status()==2) {
+                echo $_SESSION['username'];
+            }
+        ?></h3>
     </div>
 
     <div class="footer">
