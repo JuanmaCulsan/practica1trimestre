@@ -67,12 +67,24 @@
         <?php else:?>
             <a href="logging.php"><h1>MECANICOS EDUARDO</h1></a>
         <?php endif?>
-            
+            <?php if (isset($_SESSION['username'])):?>
             <h3><?php 
-                if (isset($_SESSION['username'])) {
-                    echo $_SESSION['username'];
-                }
+                echo $_SESSION['username'];
             ?></h3>
+            <?php
+                $cookie=$_SESSION['username'].'cookie';
+                //EL VALOR EN ESTE CASO CUANDO FUE EL ULTIMO MOMENTO EN EL QUE SE CONECTÓ
+                $date = new Datetime();
+                //lo cambio de formato para que sea legible
+                $valor = $date -> format('Y-m-d H:i:s');
+                //el tiempo de la cookie
+                $tiempo = time()+84600*30;
+                setcookie("fecha",$valor,$tiempo,"/");
+            ?>
+            <h3><?php
+                echo $_SESSION['ultConn'];
+            ?></h3>
+            <?php endif?>
     </div>
 
     <div class="footer">

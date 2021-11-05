@@ -1,6 +1,8 @@
 <?php
     require "header.php";
     require "conexiones/conexion.php";
+
+    $fech=$_COOKIE['fecha'];
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +34,7 @@
                             
                             $_SESSION['username']=$login;
                             $_SESSION['password']=$pass;
+                            $_SESSION['ultConn']=$fech;
                             $sql="SELECT * FROM usuario WHERE login= '$login' AND pass= '$pass'";
 
                             $results = mysqli_query($conn, $sql);
@@ -59,7 +62,7 @@
                     }
                 }
             }
-            header("location: http://localhost:81/cloneSucio/practica1trimestre/$headerL");
+            header("location: http://localhost:81/pruebaclone/practica1trimestre/$headerL");
     ?>
     <?php else:?>
         <div class="container">

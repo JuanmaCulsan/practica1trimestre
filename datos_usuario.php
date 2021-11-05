@@ -6,7 +6,6 @@
     $passw=$_GET['pass'];
     $idVe=0;
     $id=0;
-
     $sql="SELECT id_usu FROM usuario WHERE login='$loggin' AND pass='$passw'";
 
     $queryIdUsu = mysqli_query($conn,$sql);

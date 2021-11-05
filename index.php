@@ -44,7 +44,7 @@
                     ?>
                         <h3 class="ok">Te has registardo exitosamente.</h3>    
                     <?php
-                    header("location: http://localhost:81/cloneSucio/practica1trimestre/datos_usuario.php?id_usu=$id_user");
+                    header("location: http://localhost:81/pruebaclone/practica1trimestre/datos_usuario.php?id_usu=$id_user");
                     }else{
                         ?>
                             <h3 class="bad">Has tenido un error.</h3>
