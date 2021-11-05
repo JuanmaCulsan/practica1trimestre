@@ -1,8 +1,10 @@
 <?php
+    if (isset($_GET['loggin'])) {
+        $fech=$_COOKIE['fecha_'.$_GET['loggin']];
+    }
+
     require "header.php";
     require "conexiones/conexion.php";
-
-    $fech=$_COOKIE['fecha'];
 ?>
 
 <!DOCTYPE html>

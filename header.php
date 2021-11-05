@@ -79,7 +79,7 @@
                 $valor = $date -> format('Y-m-d H:i:s');
                 //el tiempo de la cookie
                 $tiempo = time()+84600*30;
-                setcookie("fecha",$valor,$tiempo,"/");
+                setcookie("fecha_".$_SESSION['username'],$valor,$tiempo,"/");
             ?>
             <h3><?php
                 echo $_SESSION['ultConn'];
