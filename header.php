@@ -26,6 +26,11 @@
             float: left;
         }
 
+        h1{
+            text-decoration: none;
+            color: black;
+        }
+
         .logo{
             text-decoration: none;
             color: black;
@@ -51,20 +56,23 @@
 
 <?php 
         session_start();    
-        $_SESSION['username'];
-        $_SESSION['password'];
 ?>
 </head>
 <body>
     
     <div class="header">
-        <a href="logging.php" class="logo"><h1>MECANICOS EDUARDO</h1></a>
 
-        <h3><?php 
-            if (session_status()==2) {
-                echo $_SESSION['username'];
-            }
-        ?></h3>
+        <?php if (! empty($_SESSION['username'])):?>
+            <a href="cerrarsesion.php"><h1>MECANICOS EDUARDO</h1></a>
+        <?php else:?>
+            <a href="logging.php"><h1>MECANICOS EDUARDO</h1></a>
+        <?php endif?>
+            
+            <h3><?php 
+                if (isset($_SESSION['username'])) {
+                    echo $_SESSION['username'];
+                }
+            ?></h3>
     </div>
 
     <div class="footer">
