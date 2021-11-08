@@ -22,7 +22,7 @@
         if (isset($_GET['loggin'])):
             
             $login=$_GET['loggin'];
-            $pass=$_GET['pass'];
+            $pass=($_GET['pass']);
             $headerL="logging.php";
             $esAdmin=-1;
 
