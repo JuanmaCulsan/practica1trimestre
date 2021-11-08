@@ -2,22 +2,25 @@
     require("header.php");
     require('conexiones/conexion.php');
 
-    $loggin=$_GET['loggin'];
-    $passw=$_GET['pass'];
     $idVe=0;
     $id=0;
-    $sql="SELECT id_usu FROM usuario WHERE login='$loggin'";
-    
-    $queryIdUsu = mysqli_query($conn,$sql);
+    if ((isset($_GET['loggin'])||(isset($_POST['login'])))) {
+        
+        $loggin=$_GET['loggin'];
+        $passw=$_GET['pass'];
+        
+        $sql="SELECT id_usu FROM usuario WHERE login='$loggin'";
+        
+        $queryIdUsu = mysqli_query($conn,$sql);
 
-    if($queryIdUsu){
-        if(mysqli_num_rows($queryIdUsu)>0){
-            while($row = mysqli_fetch_assoc($queryIdUsu)){
-                $id = $row['id_usu'];
+        if($queryIdUsu){
+            if(mysqli_num_rows($queryIdUsu)>0){
+                while($row = mysqli_fetch_assoc($queryIdUsu)){
+                    $id = $row['id_usu'];
+                }
             }
         }
-    }
-    
+    } 
  
     //TIENE QUE TENER EL MISMO VALOR QUE LA COLUMNA DE LA TABLA Y EL VALOR QUE QUEREMOS buscar
     //usar el id_usuario 

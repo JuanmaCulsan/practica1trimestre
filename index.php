@@ -15,20 +15,6 @@
         $login=trim ($_POST["login"]);
         $pass=trim ($_POST["pass"]);
         $repetido=false;
-        
-        $sql="SELECT login, id_usu FROM usuario";
-        $sqlconfirm=mysqli_query($conn,$sql);
-        
-        
-        if($sqlconfirm){
-            if(mysqli_num_rows($sqlconfirm)>0){
-                while($row = mysqli_fetch_assoc($sqlconfirm)){
-                    if ($row['login']==$login) {
-                        $repetido=true;
-                        $id_user=$row['id_usu'];
-                    }
-                }
-            }
 
             if($repetido) {
                 ?>
@@ -44,19 +30,14 @@
                     ?>
                         <h3 class="ok">Te has registardo exitosamente.</h3>    
                     <?php
-                    header("location: http://localhost:81/cloneSucio/practica1trimestre/datos_usuario.php?id_usu=$id_user");
-                    }else{
+                    header("location: http://localhost:81/cloneSucio/practica1trimestre/datos_usuario.php?loggin=".$_POST['login']."&pass=".password_hash($_POST['pass'],PASSWORD_DEFAULT));
+                }else{
                         ?>
                             <h3 class="bad">Has tenido un error.</h3>
                         <?php
             
                     }
             }
-        }else{
-            ?>
-                <h3 class="bad">Has tenido un error.</h3>
-            <?php
-        }
     }else{
         ?>
             <h3 class="bad">Por favor complete los campos correctamente.</h3>
@@ -81,7 +62,7 @@
         <h1>Registrate</h1>
         <input type="text" name="name" placeholder="Nombre">
         <input type="text" name="login" placeholder="Nombre de login">
-        <input type="text" name="pass" placeholder="Contraseña">
+        <input type="password" name="pass" placeholder="Contraseña">
         <input type="submit" name="register">
     </form>
 </body>
