@@ -67,7 +67,7 @@
                     
                             $id = mysqli_insert_id($conn);
                             echo "Vehiculo creado correctamente";
-                            header("location: http://localhost:81/pruebaclone/practica1trimestre/datos_usuario.php?id_usu=$id_usu");
+                            header("location: http://localhost:81/cloneSucio/practica1trimestre/datos_usuario.php?id_usu=$id_usu");
                         }
                     }
                 ?>

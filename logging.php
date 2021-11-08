@@ -2,7 +2,7 @@
     if (isset($_GET['loggin'])) {
         $fech=$_COOKIE['fecha_'.$_GET['loggin']];
     }
-
+    
     require "header.php";
     require "conexiones/conexion.php";
 ?>
@@ -25,46 +25,36 @@
             $pass=($_GET['pass']);
             $headerL="logging.php";
             $esAdmin=-1;
-
-            $sql="SELECT login FROM usuario";
+            
+            $sql="SELECT login,pass,admin FROM usuario";
             $res0=mysqli_query($conn,$sql);
             if ($res0) {
                 if (mysqli_num_rows($res0)>0) {
                     while($fils=mysqli_fetch_assoc($res0)){
 
-                        if ($fils['login']==$login) {
-                            
-                            $_SESSION['username']=$login;
-                            $_SESSION['password']=$pass;
-                            $_SESSION['ultConn']=$fech;
-                            $sql="SELECT * FROM usuario WHERE login= '$login' AND pass= '$pass'";
+                        if (($fils['login']==$login)) { 
+                            if (password_verify($pass,$fils['pass'])) {
 
-                            $results = mysqli_query($conn, $sql);
+                                $_SESSION['username']=$login;
+                                $_SESSION['password']=$pass;
+                                $_SESSION['ultConn']=$fech;
 
- 
-                            if ($results === false) {
-                                echo mysqli_error($conn);
-                            } else {
-                                $recorrer = mysqli_fetch_all($results, MYSQLI_ASSOC);
-                            }
-
-                            foreach ($recorrer as $tabla) {
-                                $esAdmin=$tabla['admin'];
-                            }
-
-                            if ($esAdmin==0) {
-                                
-                                $headerL="datos_usuario.php?loggin=$login&pass=$pass";
-                            }
-                            else if ($esAdmin==1) {
-                                
-                                $headerL0="";
+                                $esAdmin=$fils['admin'];
+    
+                                if ($esAdmin==0) {
+                                    
+                                    $headerL="datos_usuario.php?loggin=$login&pass=".password_hash($pass,PASSWORD_DEFAULT);
+                                }
+                                else if ($esAdmin==1) {
+                                    
+                                    $headerL0="";
+                                }
                             }
                         }
                     }
                 }
             }
-            header("location: http://localhost:81/pruebaclone/practica1trimestre/$headerL");
+            header("location: http://localhost:81/cloneSucio/practica1trimestre/$headerL");
     ?>
     <?php else:?>
         <div class="container">

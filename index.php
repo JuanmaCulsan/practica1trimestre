@@ -37,14 +37,14 @@
             }
             else{
 
-                $consulta="INSERT INTO usuario( nombre, login, pass) VALUES ('".$name."','".$login."','".$pass."')";
+                $consulta="INSERT INTO usuario( nombre, login, pass) VALUES ('".$name."','".$login."','".password_hash($pass,PASSWORD_DEFAULT)."')";
                 $resultado=mysqli_query($conn,$consulta);
 
                 if($resultado){
                     ?>
                         <h3 class="ok">Te has registardo exitosamente.</h3>    
                     <?php
-                    header("location: http://localhost:81/pruebaclone/practica1trimestre/datos_usuario.php?id_usu=$id_user");
+                    header("location: http://localhost:81/cloneSucio/practica1trimestre/datos_usuario.php?id_usu=$id_user");
                     }else{
                         ?>
                             <h3 class="bad">Has tenido un error.</h3>
