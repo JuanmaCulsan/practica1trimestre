@@ -5,6 +5,7 @@
     
     require "header.php";
     require "conexiones/conexion.php";
+    //hola
 ?>
 
 <!DOCTYPE html>
