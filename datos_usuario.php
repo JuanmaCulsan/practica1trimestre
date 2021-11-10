@@ -2,18 +2,17 @@
     require("header.php");
     require('conexiones/conexion.php');
 
-    $idVe=0;
+    $idVe=0;//inicializo las id de vehiculo y usuario en caso de no recibirlas
     $id=0;
-    if ((isset($_GET['loggin'])||(isset($_POST['login'])))) {
+    if ((isset($_GET['loggin'])||(isset($_POST['login'])))) {//en este if compruebo si me pasan el username(login) y saco la id del usuario
         
         $loggin=$_GET['loggin'];
-        $passw=$_GET['pass'];
         
         $sql="SELECT id_usu FROM usuario WHERE login='$loggin'";
         
         $queryIdUsu = mysqli_query($conn,$sql);
 
-        if($queryIdUsu){
+        if($queryIdUsu){//recorro la base de datos en busca de la id de usuario
             if(mysqli_num_rows($queryIdUsu)>0){
                 while($row = mysqli_fetch_assoc($queryIdUsu)){
                     $id = $row['id_usu'];

@@ -1,5 +1,5 @@
 <?php
-
+    //conexion para tabla de servicios
     $sqlser="SELECT * FROM servicios ORDER BY id_ser;";
 
     $res=mysqli_query($conn,$sqlser);

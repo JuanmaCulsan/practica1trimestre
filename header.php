@@ -55,21 +55,21 @@
     </style>
 
 <?php 
-        session_start();    
+        session_start();  //inicio la sesion, pero no la creo  
 ?>
 </head>
 <body>
     
     <div class="header">
 
-        <?php if (! empty($_SESSION['username'])):?>
+        <?php if (! empty($_SESSION['username'])): //en caso de que la sesion este iniciada, podremos cerrar la sesion en el titulo ?>
             <a href="cerrarsesion.php"><h1>MECANICOS EDUARDO</h1></a>
-        <?php else:?>
+        <?php else: //si la sesion no esta iniciada no hace falta cerrarla ?>
             <a href="logging.php"><h1>MECANICOS EDUARDO</h1></a>
         <?php endif?>
-            <?php if (isset($_SESSION['username'])):?>
+            <?php if (isset($_SESSION['username'])): //en este if se comprueba si podemos conseguir el username de la sesion ?>
             <h3><?php 
-                echo $_SESSION['username'];
+                echo $_SESSION['username']; //en caso de que podamos conseguir los datos, saca por pantalla el username
             ?></h3>
             <?php
                 $cookie=$_SESSION['username'].'cookie';
@@ -82,7 +82,10 @@
                 setcookie("fecha_".$_SESSION['username'],$valor,$tiempo,"/");
             ?>
             <h3><?php
-                echo $_SESSION['ultConn'];
+                if (isset($_SESSION['ultConn'])) {
+                    echo $_SESSION['ultConn']; // justo debajo del username estará la última vez que se conectó
+                }
+                
             ?></h3>
             <?php endif?>
     </div>

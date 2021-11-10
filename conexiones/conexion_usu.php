@@ -1,5 +1,5 @@
 <?php
-
+    //conexion para tabla de usuarios
     $sqlusu="SELECT * FROM usuario ORDER BY id_usu;";
 
     $resu=mysqli_query($conn,$sqlusu);

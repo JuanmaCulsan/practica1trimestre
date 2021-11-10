@@ -1,5 +1,5 @@
 <?php
-
+    //conexion para tabla de vehiculos
     $sqlv="SELECT * FROM vehiculos ORDER BY id_veh;";
 
     $resv=mysqli_query($conn,$sqlv);
