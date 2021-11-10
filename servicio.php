@@ -8,11 +8,11 @@
 
     $idServ=$_GET['idSer'];
 
-    $filasServ=mysqli_num_rows($res);
+    $filasServ=mysqli_num_rows($res);//numero de filas en tabla servicio
 
     $idVehi= $_GET['id_veh'];
 
-    foreach ($vehi as $v) {
+    foreach ($vehi as $v) {//coger la id del usuario con la id del vehiculo
         
         if ($v['id_veh']==$idVehi) {
             
@@ -34,14 +34,14 @@
     <div class="container">
         <div class="content">
             <?php foreach ($usu as $us): ?>
-                <?php if ($us['id_usu']==$id_usu): ?>
+                <?php if ($us['id_usu']==$id_usu): //sacar nombre del usuario?>
                     <h1 class="bienvenido"><?= $us['nombre']; ?></h1>
                 <?php endif?>   
             <?php endforeach; ?>
             <h3 class="serVeh">Vehiculo</h3>
                 <table  id="tablaServicio">
                 
-                <?php foreach ($vehi as $car): ?>
+                <?php foreach ($vehi as $car): //sacar datos del vehiculo?>
                     <?php if ($car['id_veh']==$idVehi): ?>
                     <tr>
                         <td><label><?= $car['matricula']; ?></label></td>
@@ -54,7 +54,7 @@
             </table>
                         
             <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST"&&$idServ==$_POST['idSer']) {
+                if ($_SERVER["REQUEST_METHOD"] == "POST"&&$idServ==$_POST['idSer']) {//en este caso entra si se esta editando servicios
 
                     
                     $sql = "UPDATE servicios 
@@ -72,7 +72,7 @@
                         echo "Servicio editado correctamente";
                     }
                 }
-                else if($_SERVER["REQUEST_METHOD"] == "POST"){
+                else if($_SERVER["REQUEST_METHOD"] == "POST"){//en este caso entra si se esta creando servicios y luego manda al usuario a la lista de vehiuculos
                     
                     $sql = "INSERT INTO servicios (id_ser, id_veh, descrip, fecha, km)
                         VALUES ('". $_POST['idSer'] . "','". $idVehi ."','". $_POST['tipoServicio'] . "','". $_POST['fecha'] . "','". $_POST['km'] . "');";
@@ -94,7 +94,7 @@
 
             <h3 class="serVeh">Servicio</h3>
                 
-            <?php if (is_null($idServ)||($idServ>$filasServ)||$idServ<=0): ?>
+            <?php if (is_null($idServ)||($idServ>$filasServ)||$idServ<=0): //mostrar datos de nuevo servicio?>
 
                 
                 <form method="POST">
@@ -115,7 +115,7 @@
                     <input type="submit" value="GUARDAR">
                 </form>
                 
-            <?php else: ?>
+            <?php else: //datos de servicio ya creado y editable?>
 
                 <form method="POST">
 

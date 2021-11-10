@@ -44,11 +44,11 @@
     
                                 if ($esAdmin==0) {//si no es administrador, mando al usuario a la pagina datos_usuario
                                     
-                                    $headerL="datos_usuario.php?loggin=$login&pass=".password_hash($pass,PASSWORD_DEFAULT);
+                                    $headerL="datos_usuario.php?loggin=$login";
                                 }
                                 else if ($esAdmin==1) {//si es administrador, se le mandara a la lista de usuarios
                                     
-                                    $headerL0="";
+                                    $headerL="datos_admin.php";
                                 }
                             }
                         }

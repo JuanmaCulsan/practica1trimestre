@@ -20,7 +20,7 @@
             }
         }
     } 
- 
+
     //TIENE QUE TENER EL MISMO VALOR QUE LA COLUMNA DE LA TABLA Y EL VALOR QUE QUEREMOS buscar
     //usar el id_usuario 
     $sql = "SELECT * FROM usuario as us, vehiculos as ve 
