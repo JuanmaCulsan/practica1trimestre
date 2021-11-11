@@ -6,6 +6,10 @@
     require 'conexiones/conexion_vehi.php';
     require 'conexiones/conexion_servi.php';
 
+    if (!isset($_SESSION['username'])) {
+        header("Location: logging.php ");
+    }
+
     $idServ=$_GET['idSer'];
 
     $filasServ=mysqli_num_rows($res);//numero de filas en tabla servicio

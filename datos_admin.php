@@ -1,6 +1,10 @@
 <?php
     require("header.php");
     require("conexiones/conexion.php");
+
+    if (!isset($_SESSION['username'])) {
+        header("Location: logging.php ");
+    }
 ?>
 
 

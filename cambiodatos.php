@@ -4,6 +4,10 @@
 
     $id=$_GET['id_usu'];
 
+    if (!isset($_SESSION['username'])) {
+        header("Location: logging.php ");
+    }
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 

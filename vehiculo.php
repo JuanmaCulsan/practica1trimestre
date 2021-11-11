@@ -6,6 +6,10 @@
     require 'conexiones/conexion_vehi.php';
     require 'conexiones/conexion_servi.php';
 
+    if (!isset($_SESSION['username'])) {
+        header("Location: logging.php ");
+    }
+
     $id_usu=$_GET['id_usu'];
     $idVehi= $_GET['id_veh'];
 
