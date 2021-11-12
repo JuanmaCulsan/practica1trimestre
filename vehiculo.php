@@ -33,7 +33,9 @@
                     <?php if ($us['id_usu']==$id_usu): ?>
                     
                         <h1 class="bienvenido" align="center"><?= $us['nombre']; ?></h1>
-                    
+                        
+                        <?php $log=$us['login']?>
+
                     <?php endif?>   
                 <?php endforeach; ?>
 
@@ -71,7 +73,7 @@
                     
                             $id = mysqli_insert_id($conn);
                             echo "Vehiculo creado correctamente";
-                            header("location: http://localhost:81/cloneSucio/practica1trimestre/datos_usuario.php?id_usu=$id_usu");//despues de crear el vehiculo manda al usuario a la lista de servicios
+                            header("location: http://localhost:81/cloneSucio/practica1trimestre/datos_usuario.php?loggin=$log");//despues de crear el vehiculo manda al usuario a la lista de servicios
                         }
                     }
                 ?>
