@@ -1,6 +1,7 @@
 <?php
     require("header.php");
     require("conexiones/conexion.php");
+    require("funciones/index_funciones.php");
 ?>
 <?php
    
@@ -22,25 +23,10 @@
                 <?php
             }
             else{
-
-                $consulta="INSERT INTO usuario( nombre, login, pass) VALUES ('".$name."','".$login."','".password_hash($pass,PASSWORD_DEFAULT)."')";//E: encriptamos la contraseña para poder guardarla en bbdd
-                $resultado=mysqli_query($conn,$consulta);
-
-                if($resultado){
-                    ?>
-                        <h3 class="ok">Te has registardo exitosamente.</h3>    
-                    <?php //si te registras de forma exitosa, vas a la pagina datos_usuario de forma automatica, mandando los datos necesarios
-
-                    $_SESSION['username']=$login;//creo la sesion, ya que no pasa por el login
-                    $_SESSION['password']=password_hash($pass,PASSWORD_DEFAULT);
-
-                    header("location: http://localhost:81/cloneSucio/practica1trimestre/datos_usuario.php?loggin=".$_POST['login'],PASSWORD_DEFAULT);
-                }else{
-                        ?>
-                            <h3 class="bad">Has tenido un error.</h3>
-                        <?php
-            
-                    }
+                nuevo_usuario($_POST["name"],$_POST["login"],$_POST["pass"]);
+                $_SESSION['username']=$_POST["login"];//creo la sesion, ya que no pasa por el login
+                $_SESSION['password']=password_hash($_POST["pass"],PASSWORD_DEFAULT);
+                header("location: http://localhost:81/pruebaclone/practica1trimestre/datos_usuario.php?loggin=".$_POST['login'],PASSWORD_DEFAULT);
             }
     }else{
         ?>
