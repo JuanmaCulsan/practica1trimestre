@@ -41,26 +41,16 @@
                 <?php endforeach; ?>
 
                 <?php
-                    if ($_SERVER["REQUEST_METHOD"] == "POST"&&$idVehi==$_POST['id_veh']) {//se entra en este if si se esta editando el vehiculo
+                    if ($_SERVER["REQUEST_METHOD"] == "POST"&&$idVehi==$_POST['id_veh']&&isset($_POST['matri '])) {//se entra en este if si se esta editando el vehiculo
 
                         editar_veh($_POST['matri'],$_POST['marc'],$_POST['model'],$idVehi,$id_usu);
                     }
-                    else if($_SERVER["REQUEST_METHOD"] == "POST"){//en el caso de crear un vehiculo entra en este else if
-                        
-                        $sql = "INSERT INTO vehiculos (id_usu, matricula, marca, modelo)
-                            VALUES ('". $id_usu ."','". $_POST['matri'] . "','". $_POST['marc'] . "','". $_POST['model'] . "');";
+                    else if($_SERVER["REQUEST_METHOD"] == "POST"&&isset($_POST['matri '])){//en el caso de crear un vehiculo entra en este else if
 
-                        $results = mysqli_query($conn, $sql);
-
-                        if ($results === false) {
-            
-                            echo mysqli_error($conn);
-                    
-                        } else {
-                    
-                            echo "Vehiculo creado correctamente";
-                            header("location: http://localhost:81/cloneSucio/practica1trimestre/datos_usuario.php?loggin=$log");//despues de crear el vehiculo manda al usuario a la lista de servicios
-                        }
+                        crear_veh($_POST['matri'],$_POST['marc'],$_POST['model'],$id_usu,$log);
+                    }
+                    else if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        echo "Rellena los campos correctamente";
                     }
                 ?>
                 
@@ -82,17 +72,12 @@
                                     <input type="hidden" name="id_veh" value=<?= $filasV+1?>>
                                 
                         <?php else: //en caso de que el vehiculo exista, con la posibilidad de editarlo?>
-                            <?php foreach ($vehi as $car): ?>
-                                <?php if ($car['id_veh']==$idVehi): ?>
-                                        
-                                        <tr>
-                                            <td><input type="text" name="matri" value=<?= $car['matricula']; ?> placeholder="Inserte datos"></td>
-                                            <td><input type="text" name="marc" value=<?= $car['marca']; ?> placeholder="Inserte datos"></td>
-                                            <td><input type="text" name="model" value=<?= $car['modelo']; ?> placeholder="Inserte datos"></td>
-                                        </tr>
-                                        <input type="hidden" name="id_veh" value=<?= $idVehi?>>
-                                <?php endif;?>
-                            <?php endforeach; ?>
+                            <tr>
+                                <td><input type="text" name="matri" value=<?= $car['matricula']; ?> placeholder="Inserte datos"></td>
+                                <td><input type="text" name="marc" value=<?= $car['marca']; ?> placeholder="Inserte datos"></td>
+                                <td><input type="text" name="model" value=<?= $car['modelo']; ?> placeholder="Inserte datos"></td>
+                            </tr>
+                            <input type="hidden" name="id_veh" value=<?= $idVehi?>>
                         <?php endif;?>
                     </table> 
                     
