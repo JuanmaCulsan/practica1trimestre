@@ -5,6 +5,7 @@
     require 'conexiones/conexion_usu.php';
     require 'conexiones/conexion_vehi.php';
     require 'conexiones/conexion_servi.php';
+    require 'funciones/vehiculo_funciones.php';
 
     if (!isset($_SESSION['username'])) {
         header("Location: logging.php ");
@@ -42,21 +43,7 @@
                 <?php
                     if ($_SERVER["REQUEST_METHOD"] == "POST"&&$idVehi==$_POST['id_veh']) {//se entra en este if si se esta editando el vehiculo
 
-                        
-                        $sql = "UPDATE vehiculos 
-                            SET matricula='". $_POST['matri'] . "',marca='". $_POST['marc'] . "',modelo='". $_POST['model'] . "' WHERE id_veh='".$idVehi."'AND id_usu='".$id_usu."';";
-
-                        $results = mysqli_query($conn, $sql);
-
-                        if ($results === false) {
-            
-                            echo mysqli_error($conn);
-                    
-                        } else {
-                    
-                            $id = mysqli_insert_id($conn);
-                            echo "Vehiculo editado correctamente";
-                        }
+                        editar_veh($_POST['matri'],$_POST['marc'],$_POST['model'],$idVehi,$id_usu);
                     }
                     else if($_SERVER["REQUEST_METHOD"] == "POST"){//en el caso de crear un vehiculo entra en este else if
                         
@@ -71,7 +58,6 @@
                     
                         } else {
                     
-                            $id = mysqli_insert_id($conn);
                             echo "Vehiculo creado correctamente";
                             header("location: http://localhost:81/cloneSucio/practica1trimestre/datos_usuario.php?loggin=$log");//despues de crear el vehiculo manda al usuario a la lista de servicios
                         }

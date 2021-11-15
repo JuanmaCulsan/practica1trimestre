@@ -1,6 +1,6 @@
 <?php
     require("header.php");
-    require('conexiones/conexion.php');
+    require("funciones/cambiodatos_funciones.php");
 
     $id=$_GET['id_usu'];
 
@@ -15,21 +15,8 @@
             echo "rellene los campos";
         }
         else{
-            $sql2 = "UPDATE usuario 
-                SET nombre='".$_POST['nombre']."', login='".$_POST['login']."', pass='".password_hash($_POST['pass'],PASSWORD_DEFAULT)."' 
-                WHERE id_usu='".$id."'";
-     
-            $results2 = mysqli_query($conn, $sql2);
-     
-            if ($results2 === false) {
-     
-            echo mysqli_error($conn);
-     
-            } else {
-                header("location: http://localhost:81/cloneSucio/practica1trimestre/datos_usuario.php?id_usu=$id");
-                $id = mysqli_insert_id($conn);
-                //echo "Inserted record with ID: $id";
-            }
+
+            editar_usu($_POST['nombre'],$_POST['login'],password_hash($_POST['pass'],PASSWORD_DEFAULT),$id);
         }  
     } 
     //$contra = $_GET['pass'];
