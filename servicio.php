@@ -2,7 +2,6 @@
 
     require 'header.php';
     require 'conexiones/conexion.php';
-    require 'conexiones/conexion_usu.php';
     require 'funciones/vehiculo_funciones.php';
     require 'funciones/servicio_funciones.php';
 
