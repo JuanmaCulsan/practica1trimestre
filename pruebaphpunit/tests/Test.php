@@ -2,15 +2,14 @@
 
 use PHPUnit\Framework\TestCase;
 
-require("../practica1trimestre/funciones/cambiodatos_funciones.php");
-
 //use RegistrarUsuarios;
 
 class Test extends TestCase{
 
-    public function editar_usu("hola","adios","pass",5) : void{
+    public function comprobar() : void{
 
         $this->assertTrue(true);
+        $this->assertFalse(true);
 
     }
 }
