@@ -2,9 +2,8 @@
 
     require 'header.php';
     require 'conexiones/conexion.php';
-    require 'conexiones/conexion_usu.php';
-    require 'conexiones/conexion_vehi.php';
-    require 'conexiones/conexion_servi.php';
+    require 'funciones/vehiculo_funciones.php';
+    require 'funciones/servicio_funciones.php';
 
     if (!isset($_SESSION['username'])) {
         header("Location: logging.php ");
@@ -12,16 +11,11 @@
 
     $idServ=$_GET['idSer'];
 
-    $filasServ=mysqli_num_rows($res);//numero de filas en tabla servicio
-
     $idVehi= $_GET['id_veh'];
-
-    foreach ($vehi as $v) {//coger la id del usuario con la id del vehiculo
+   
+    if (vehiculo_existe($idVehi)) {
         
-        if ($v['id_veh']==$idVehi) {
-            
-            $id_usu=$v['id_usu'];
-        }
+        $id_usu=$idVehi;
     }
 ?>
 
@@ -37,68 +31,42 @@
 <body>
     <div class="container">
         <div class="content">
-            <?php foreach ($usu as $us): ?>
-                <?php if ($us['id_usu']==$id_usu): //sacar nombre del usuario?>
-                    <h1 class="bienvenido"><?= $us['nombre']; ?></h1>
-                <?php endif?>   
-            <?php endforeach; ?>
+            
+            <h1 class="bienvenido"><?= nombreUsuVeh($idVehi,0)[0]; ?></h1>
             <h3 class="serVeh">Vehiculo</h3>
                 <table  id="tablaServicio">
                 
-                <?php foreach ($vehi as $car): //sacar datos del vehiculo?>
-                    <?php if ($car['id_veh']==$idVehi): ?>
-                    <tr>
-                        <td><label><?= $car['matricula']; ?></label></td>
-                        <td><label><?= $car['marca']; ?></label></td>
-                        <td><label><?= $car['modelo']; ?></label></td>
-                        
-                    </tr>
-                    <?php endif?>   
-                <?php endforeach; ?>
+                <?php $datosV=datos_veh($idVehi)?>
+                <tr>
+                    <td><label><?= $datosV['matricula']; ?></label></td>
+                    <td><label><?= $datosV['marca']; ?></label></td>
+                    <td><label><?= $datosV['modelo']; ?></label></td>
+                    
+                </tr>
             </table>
                         
             <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST"&&$idServ==$_POST['idSer']) {//en este caso entra si se esta editando servicios
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-                    
-                    $sql = "UPDATE servicios 
-                        SET descrip='". $_POST['tipoServicio'] . "',fecha='". $_POST['fecha'] . "',km='". $_POST['km'] . "' WHERE id_ser='".$idServ."'AND id_veh='".$idVehi."';";
+                    if (($_POST['tipoServicio'])!=""&&($_POST['fecha'])!=""&&($_POST['km'])!="") {
+                            
+                        if (servicio_existe($_POST['idSer'])) {//en este caso entra si se esta editando servicios
 
-                    $results = mysqli_query($conn, $sql);
-
-                    if ($results === false) {
-        
-                        echo mysqli_error($conn);
-                
-                    } else {
-                
-                        $id = mysqli_insert_id($conn);
-                        echo "Servicio editado correctamente";
+                            editar_ser($_POST['tipoServicio'],$_POST['fecha'],$_POST['km'],$idServ,$idVehi);
+                        }
+                        else{//en este caso entra si se esta creando servicios y luego manda al usuario a la lista de vehiuculos
+                            crear_ser($_POST['tipoServicio'],$_POST['fecha'],$_POST['km'],$_POST['idSer'],$idVehi,$id_usu);
+                        }
                     }
-                }
-                else if($_SERVER["REQUEST_METHOD"] == "POST"){//en este caso entra si se esta creando servicios y luego manda al usuario a la lista de vehiuculos
-                    
-                    $sql = "INSERT INTO servicios (id_ser, id_veh, descrip, fecha, km)
-                        VALUES ('". $_POST['idSer'] . "','". $idVehi ."','". $_POST['tipoServicio'] . "','". $_POST['fecha'] . "','". $_POST['km'] . "');";
-
-                    $results = mysqli_query($conn, $sql);
-
-                    if ($results === false) {
-        
-                        echo mysqli_error($conn);
-                
-                    } else {
-                
-                        $id = mysqli_insert_id($conn);
-                        echo "Servicio creado correctamente";
-                        header("location: http://localhost:81/cloneSucio/practica1trimestre/datos_usuario.php?id_usu=$id_usu");
+                    else{
+                        echo "Rellena los campos correctamente";
                     }
                 }
             ?>
 
             <h3 class="serVeh">Servicio</h3>
                 
-            <?php if (is_null($idServ)||($idServ>$filasServ)||$idServ<=0): //mostrar datos de nuevo servicio?>
+            <?php if (!servicio_existe($idServ)): //mostrar datos de nuevo servicio?>
 
                 
                 <form method="POST">
@@ -115,7 +83,6 @@
                             <td><input type="text" name="km" placeholder="Inserte datos"></td>
                         </tr>
                     </table>
-                    <input type="hidden" name="idSer" value=<?= ($filasServ)+1?>>
                     <input type="submit" value="GUARDAR">
                 </form>
                 
@@ -123,28 +90,24 @@
 
                 <form method="POST">
 
-                    <?php foreach ($servs as $se): ?>
-                        <?php if ($se['id_ser']==$idServ): ?>
-                            <table>
-                                <tr>
-                                    <th>Tipo de servicio</th>
-                                    <th>Fecha</td>
-                                    <th>Km</th>
-                                </tr>
-                                
-                                <tr>
-                                    <td><input type="text" name="tipoServicio" value=<?= $se['descrip']; ?> placeholder="Inserte datos"></td>
-                                    <td><input type="date" name="fecha" value=<?= $se['fecha']; ?>></td>
-                                    <td><input type="text" name="km" value=<?= $se['km']; ?> placeholder="Inserte datos"></td>
-                                </tr>
-                            </table>
+                    <?php $datosS=datos_ser($idServ)?>
+                    <table>
+                        <tr>
+                            <th>Tipo de servicio</th>
+                            <th>Fecha</td>
+                            <th>Km</th>
+                        </tr>
+                        
+                        <tr>
+                            <td><input type="text" name="tipoServicio" value=<?= $datosS['descrip']; ?> placeholder="Inserte datos"></td>
+                            <td><input type="date" name="fecha" value=<?= $datosS['fecha']; ?>></td>
+                            <td><input type="text" name="km" value=<?= $datosS['km']; ?> placeholder="Inserte datos"></td>
+                        </tr>
+                    </table>
 
-                            <input type="hidden" name="idSer" value=<?= $idServ?>>
-                            <input type="submit" class="submit"  value="GUARDAR">
-                            <input type="reset" class="submit" value="Reiniciar">
-
-                        <?php endif?>
-                    <?php endforeach; ?>
+                    <input type="hidden" name="idSer" value=<?= $datosS['id_ser']?>>
+                    <input type="submit" class="submit"  value="GUARDAR">   
+                    <input type="reset" class="submit" value="Reiniciar">
                 </form>
             <?php endif?>
         </div>

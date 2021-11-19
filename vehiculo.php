@@ -2,10 +2,8 @@
 
     require 'header.php';
     require 'conexiones/conexion.php';
-    require 'conexiones/conexion_usu.php';
-    require 'conexiones/conexion_vehi.php';
-    require 'conexiones/conexion_servi.php';
     require 'funciones/vehiculo_funciones.php';
+    require 'funciones/servicio_funciones.php';
 
     if (!isset($_SESSION['username'])) {
         header("Location: logging.php ");
@@ -13,8 +11,6 @@
 
     $id_usu=$_GET['id_usu'];
     $idVehi= $_GET['id_veh'];
-
-    $filasV=mysqli_num_rows($resv);//numero de filas en la tabla vehiculos
 
 ?>
 
@@ -30,27 +26,27 @@
     <body>
         <div class="container">
             <div class="content">
-                <?php foreach ($usu as $us): //foreach para identifiar el nombre del usuario y sacarlo por pantalla?>
-                    <?php if ($us['id_usu']==$id_usu): ?>
-                    
-                        <h1 class="bienvenido" align="center"><?= $us['nombre']; ?></h1>
-                        
-                        <?php $log=$us['login']?>
 
-                    <?php endif?>   
-                <?php endforeach; ?>
+                <h1 class="bienvenido" align="center"><?= nombreUsuVeh($idVehi,$id_usu)[0] ?></h1>
+                
+                <?php $log=nombreUsuVeh($idVehi,$id_usu)[1]?>
 
                 <?php
-                    if ($_SERVER["REQUEST_METHOD"] == "POST"&&$idVehi==$_POST['id_veh']&&isset($_POST['matri '])) {//se entra en este if si se esta editando el vehiculo
 
-                        editar_veh($_POST['matri'],$_POST['marc'],$_POST['model'],$idVehi,$id_usu);
-                    }
-                    else if($_SERVER["REQUEST_METHOD"] == "POST"&&isset($_POST['matri '])){//en el caso de crear un vehiculo entra en este else if
-
-                        crear_veh($_POST['matri'],$_POST['marc'],$_POST['model'],$id_usu,$log);
-                    }
-                    else if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                        echo "Rellena los campos correctamente";
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        
+                        if (($_POST['matri'])!=""&&($_POST['marc'])!=""&&($_POST['model'])!="") {
+                            
+                            if (vehiculo_existe($_POST['id_veh'])) {//se entra en este if si se esta editando el vehiculo
+                                editar_veh($_POST['matri'],$_POST['marc'],$_POST['model'],$idVehi,$id_usu);
+                            }
+                            else{//en el caso de crear un vehiculo entra en este else
+                                crear_veh($_POST['matri'],$_POST['marc'],$_POST['model'],$id_usu,$log);
+                            }
+                        }
+                        else{
+                            echo "Rellena los campos correctamente";
+                        }
                     }
                 ?>
                 
@@ -64,18 +60,19 @@
                         </tr>
 
                         
-                        <?php if (is_null($idVehi)||($idVehi>$filasV)||$idVehi<=0): //en el caso de que estemos creando un vehiculo?>
+                        <?php if (!vehiculo_existe($idVehi)): //en el caso de que estemos creando un vehiculo?>  
                                 <tr>
                                     <td><input type="text" name="matri" placeholder="Inserte datos"></td>
                                     <td><input type="text" name="marc" placeholder="Inserte datos"></td>
                                     <td><input type="text" name="model" placeholder="Inserte datos"></td>
-                                    <input type="hidden" name="id_veh" value=<?= $filasV+1?>>
                                 
                         <?php else: //en caso de que el vehiculo exista, con la posibilidad de editarlo?>
                             <tr>
-                                <td><input type="text" name="matri" value=<?= $car['matricula']; ?> placeholder="Inserte datos"></td>
-                                <td><input type="text" name="marc" value=<?= $car['marca']; ?> placeholder="Inserte datos"></td>
-                                <td><input type="text" name="model" value=<?= $car['modelo']; ?> placeholder="Inserte datos"></td>
+                                <?php $datosV =datos_veh($idVehi)?>
+
+                                <td><input type="text" name="matri" value=<?= $datosV['matricula']; ?> placeholder="Inserte datos"></td>
+                                <td><input type="text" name="marc" value=<?= $datosV['marca']; ?> placeholder="Inserte datos"></td>
+                                <td><input type="text" name="model" value=<?= $datosV['modelo']; ?> placeholder="Inserte datos"></td>
                             </tr>
                             <input type="hidden" name="id_veh" value=<?= $idVehi?>>
                         <?php endif;?>
@@ -90,15 +87,9 @@
                     
                     <?php 
                     
-                    $idS=0;
-                    foreach ($servs as $serv) {//guardar la id de servicio, si no eciste se queda el valor inializado anteriormente(0)
-                        
-                        if ($serv['id_veh']==$idVehi) {
-                            
-                            $idS=$serv['id_ser'];
-                        }
-                    }
-                    if (($idVehi>0)&&($idS!=0)): //en caso de que existen los servicios?>
+                    $idS=id_serDeVeh($idVehi);
+                    
+                    if (servicio_existe($idS)): //en caso de que existen los servicios?>
                     <tr>
                         <th>Tipo de servicio</th>
                         <th>Fecha</th>
@@ -109,22 +100,26 @@
                         <p id="anuncio">Este vehiculo no dispone de servicios actualmente</p>
                     <?php endif?>
 
-                    <?php foreach($servs as $se): //mostrar los datos de todos y poder editar servicios?>
-                        <?php if($idVehi==$se['id_veh']): ?>
-                        <tr>
-                            <td><?=$se ['descrip']; ?></td>
-                            <td><?=$se ['fecha']; ?></td>
-                            <td><?=$se ['km']; ?></td>
-                            <td>
-                                <form action="servicio.php">
-                                    <input type="hidden" name="idSer" value=<?= $se['id_ser']?>>  
-                                    <input type="hidden" name="id_veh" value=<?= $idVehi?>>   
-                                    <input type="submit" class="boton_veh" value="EDITAR">
-                                </form>
-                            </td>
-                        </tr>
-                        <?php endif;?>
-                    <?php endforeach; ?>
+                    <?php 
+
+                        $idservs=mostrar_servs($idVehi);
+                        
+                        for ($i=0; $i < sizeof($idservs); $i++):
+                            $datosS=datos_ser($idservs[$i]);
+                    ?>
+                    <tr>
+                        <td><?=$datosS ['descrip']; ?></td>
+                        <td><?=$datosS ['fecha']; ?></td>
+                        <td><?=$datosS ['km']; ?></td>
+                        <td>
+                            <form action="servicio.php">
+                                <input type="hidden" name="idSer" value=<?= $datosS['id_ser']?>>  
+                                <input type="hidden" name="id_veh" value=<?= $idVehi?>>   
+                                <input type="submit" class="boton_veh" value="EDITAR">
+                            </form>
+                        </td>
+                    </tr>
+                    <?php endfor;?>
                 </table>
                 <?php if ($idVehi>0): //crear nuevo servicio?>
                                 <form action="servicio.php">
