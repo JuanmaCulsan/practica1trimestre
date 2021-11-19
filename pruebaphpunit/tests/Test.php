@@ -4,12 +4,13 @@ use PHPUnit\Framework\TestCase;
 
 //use RegistrarUsuarios;
 
+//require '../practica1trimestre/funciones/multiplicacion.php';
+
 class Test extends TestCase{
 
     public function comprobar() : void{
-
-        $this->assertTrue(true);
-        $this->assertFalse(true);
+        require '../practica1trimestre/funciones/multiplicacion.php';
+        $this->assertIsArray(numeritos(5,6));
 
     }
 }
